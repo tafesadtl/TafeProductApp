@@ -26,8 +26,7 @@ namespace ProductApps
         {
             InitializeComponent();
         }
-
-        int result;
+              
         private void calculateButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -37,6 +36,8 @@ namespace ProductApps
                 totalPaymentTextBlock.Text = Convert.ToString(cProduct.TotalPayment);
                 cProduct.calTotalPaymentWithDelivery();
                 totalChargeTextBlock.Text = Convert.ToString(cProduct.TotalPayment);
+                cProduct.calTotalPaymentWithDeliveryWithWrap();
+                totalChargeTextBlockWrap.Text = Convert.ToString(cProduct.TotalPayment);
             }
             catch (FormatException)
             {
