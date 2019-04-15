@@ -1,0 +1,63 @@
+From 39681a517f794443d5922d758dde24f62a7b40aa Mon Sep 17 00:00:00 2001
+From: Darren Trieu Lor <Darren.LOR@Student.TafeSA.edu.au>
+Date: Mon, 8 Apr 2019 15:27:34 +0930
+Subject: [PATCH 3/3] Commit the branch feat_GST1.2
+
+---
+ ProductMaintenance/ProductApps/MainWindow.xaml    | 6 ++++--
+ ProductMaintenance/ProductApps/MainWindow.xaml.cs | 2 ++
+ ProductMaintenance/ProductApps/Product.cs         | 7 +++++++
+ 3 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/ProductMaintenance/ProductApps/MainWindow.xaml b/ProductMaintenance/ProductApps/MainWindow.xaml
+index cefd77b..82a39a6 100644
+--- a/ProductMaintenance/ProductApps/MainWindow.xaml
++++ b/ProductMaintenance/ProductApps/MainWindow.xaml
+@@ -14,10 +14,12 @@
+         <Button Name="calculateButton" Content="_Calculate" HorizontalAlignment="Left" Height="37" Margin="327,152,0,0" VerticalAlignment="Top" Width="122" Click="calculateButton_Click"/>
+         <Button Name="clearButton" Content="C_lear" HorizontalAlignment="Left" Height="34" Margin="327,209,0,0" VerticalAlignment="Top" Width="122" Click="clearButton_Click"/>
+         <Button Name="closeButton" Content="Cl_ose" HorizontalAlignment="Left" Height="34" Margin="327,264,0,0" VerticalAlignment="Top" Width="122" Click="closeButton_Click"/>
+-        <Label Content="Total Charge after adding &#xA;the delivery chage ($25)" HorizontalAlignment="Left" Margin="46,190,0,0" VerticalAlignment="Top"/>
++        <Label Content="Total Charge after adding &#xA;the delivery charge ($25)" HorizontalAlignment="Left" Margin="46,190,0,0" VerticalAlignment="Top"/>
+         <TextBlock Name="totalChargeTextBlock" HorizontalAlignment="Left" Height="23" Margin="194,209,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="75"/>
+-        <Label Content="Total Charge after adding &#xA;the wrap chage ($5)" HorizontalAlignment="Left" Margin="46,232,0,0" VerticalAlignment="Top"/>
++        <Label Content="Total Charge after adding &#xA;the wrap charge ($5)" HorizontalAlignment="Left" Margin="46,232,0,0" VerticalAlignment="Top"/>
+         <TextBlock Name="totalChargeTextBlockWrap" HorizontalAlignment="Left" Height="23" Margin="194,251,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="75"/>
++        <Label Content="Total Charge after adding &#xA;the GST charge (10%)" HorizontalAlignment="Left" Margin="46,274,0,0" VerticalAlignment="Top"/>
++        <TextBlock Name="totalChargeTextBlockWrapGST" HorizontalAlignment="Left" Height="23" Margin="194,293,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="75"/>
+         
+     </Grid>
+ </Window>
+diff --git a/ProductMaintenance/ProductApps/MainWindow.xaml.cs b/ProductMaintenance/ProductApps/MainWindow.xaml.cs
+index 336b0f4..f74a222 100644
+--- a/ProductMaintenance/ProductApps/MainWindow.xaml.cs
++++ b/ProductMaintenance/ProductApps/MainWindow.xaml.cs
+@@ -38,6 +38,8 @@ namespace ProductApps
+                 totalChargeTextBlock.Text = Convert.ToString(cProduct.TotalPayment);
+                 cProduct.calTotalPaymentWithDeliveryWithWrap();
+                 totalChargeTextBlockWrap.Text = Convert.ToString(cProduct.TotalPayment);
++                cProduct.calTotalPaymentWithDeliveryWithWrapWithGST();
++                totalChargeTextBlockWrapGST.Text = Convert.ToString(cProduct.TotalPayment);
+             }
+             catch (FormatException)
+             {
+diff --git a/ProductMaintenance/ProductApps/Product.cs b/ProductMaintenance/ProductApps/Product.cs
+index 5076010..a577775 100644
+--- a/ProductMaintenance/ProductApps/Product.cs
++++ b/ProductMaintenance/ProductApps/Product.cs
+@@ -77,5 +77,12 @@ namespace ProductApps
+         {
+             TotalPayment = (Price * Quantity) + 25 + 5;
+         }
++        
++        //Calculate the total payment with delivery and wrap and GST
++        public void calTotalPaymentWithDeliveryWithWrapWithGST()
++        {
++            GST = 1.1m;
++            TotalPayment = TotalPayment * GST;
++        }
+     }
+ }
+-- 
+2.20.1.windows.1
+

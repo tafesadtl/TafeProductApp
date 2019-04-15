@@ -1,0 +1,66 @@
+From e20bd8a059ac8b51296cc60c363beb3471047bd6 Mon Sep 17 00:00:00 2001
+From: Darren Trieu Lor <Darren.LOR@Student.TafeSA.edu.au>
+Date: Mon, 8 Apr 2019 15:15:29 +0930
+Subject: [PATCH 2/3] Commit the branch feat_wrap1.1
+
+---
+ ProductMaintenance/ProductApps/MainWindow.xaml    | 2 ++
+ ProductMaintenance/ProductApps/MainWindow.xaml.cs | 5 +++--
+ ProductMaintenance/ProductApps/Product.cs         | 6 ++++++
+ 3 files changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/ProductMaintenance/ProductApps/MainWindow.xaml b/ProductMaintenance/ProductApps/MainWindow.xaml
+index edf3afe..cefd77b 100644
+--- a/ProductMaintenance/ProductApps/MainWindow.xaml
++++ b/ProductMaintenance/ProductApps/MainWindow.xaml
+@@ -16,6 +16,8 @@
+         <Button Name="closeButton" Content="Cl_ose" HorizontalAlignment="Left" Height="34" Margin="327,264,0,0" VerticalAlignment="Top" Width="122" Click="closeButton_Click"/>
+         <Label Content="Total Charge after adding &#xA;the delivery chage ($25)" HorizontalAlignment="Left" Margin="46,190,0,0" VerticalAlignment="Top"/>
+         <TextBlock Name="totalChargeTextBlock" HorizontalAlignment="Left" Height="23" Margin="194,209,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="75"/>
++        <Label Content="Total Charge after adding &#xA;the wrap chage ($5)" HorizontalAlignment="Left" Margin="46,232,0,0" VerticalAlignment="Top"/>
++        <TextBlock Name="totalChargeTextBlockWrap" HorizontalAlignment="Left" Height="23" Margin="194,251,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="75"/>
+         
+     </Grid>
+ </Window>
+diff --git a/ProductMaintenance/ProductApps/MainWindow.xaml.cs b/ProductMaintenance/ProductApps/MainWindow.xaml.cs
+index e3edf9a..336b0f4 100644
+--- a/ProductMaintenance/ProductApps/MainWindow.xaml.cs
++++ b/ProductMaintenance/ProductApps/MainWindow.xaml.cs
+@@ -26,8 +26,7 @@ namespace ProductApps
+         {
+             InitializeComponent();
+         }
+-
+-        int result;
++              
+         private void calculateButton_Click(object sender, RoutedEventArgs e)
+         {
+             try
+@@ -37,6 +36,8 @@ namespace ProductApps
+                 totalPaymentTextBlock.Text = Convert.ToString(cProduct.TotalPayment);
+                 cProduct.calTotalPaymentWithDelivery();
+                 totalChargeTextBlock.Text = Convert.ToString(cProduct.TotalPayment);
++                cProduct.calTotalPaymentWithDeliveryWithWrap();
++                totalChargeTextBlockWrap.Text = Convert.ToString(cProduct.TotalPayment);
+             }
+             catch (FormatException)
+             {
+diff --git a/ProductMaintenance/ProductApps/Product.cs b/ProductMaintenance/ProductApps/Product.cs
+index 1933d44..5076010 100644
+--- a/ProductMaintenance/ProductApps/Product.cs
++++ b/ProductMaintenance/ProductApps/Product.cs
+@@ -71,5 +71,11 @@ namespace ProductApps
+         {
+             TotalPayment = (Price * Quantity) + 25;
+         }
++
++        //Calculate the total payment with delivery and wrap
++        public void calTotalPaymentWithDeliveryWithWrap()
++        {
++            TotalPayment = (Price * Quantity) + 25 + 5;
++        }
+     }
+ }
+-- 
+2.20.1.windows.1
+
